@@ -1,0 +1,52 @@
+name: sync-test
+on:
+  push:
+    path:
+      - 'k8s/**'
+
+jobs:
+  sync:
+    name: Syncs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.TOKEN }}
+          
+      - name: Upload Env File
+        uses: actions/upload-artifact@v3
+        with:
+          name: env
+          path: k8s/
+
+      - name: other checkout
+        uses: actions/checkout@v2
+        with:
+          repository: SungYil/SyncTestRecev
+          ref: master
+          token: ${{ secrets.TOKEN }}
+
+      - name: Download Env File
+        uses: actions/download-artifact@v3
+        with:
+          name: env
+          path: k8s/
+
+      - name: Commit files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git commit -m "Fix. Send to Recev Repo env"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          repository: SungYil/FootStamp
+          branch: master
+          github_token: ${{ secrets.TOKEN }}
