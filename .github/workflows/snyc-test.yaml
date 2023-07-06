@@ -1,5 +1,6 @@
 name: sync-test
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'k8s/**'
