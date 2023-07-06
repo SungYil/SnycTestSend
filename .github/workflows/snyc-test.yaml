@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: SungYil/SyncTestRecev
-          ref: master
+          ref: main
           token: ${{ secrets.TOKEN }}
 
       - name: Download Env File
