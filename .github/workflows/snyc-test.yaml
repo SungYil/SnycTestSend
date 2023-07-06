@@ -1,7 +1,7 @@
 name: sync-test
 on:
   push:
-    path:
+    paths:
       - 'k8s/**'
 
 jobs:
@@ -47,6 +47,6 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          repository: SungYil/FootStamp
+          repository: SungYil/SyncTestRecev
           branch: main
           github_token: ${{ secrets.TOKEN }}
