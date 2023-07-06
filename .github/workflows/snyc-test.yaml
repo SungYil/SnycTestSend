@@ -35,7 +35,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: env
-          path: k8s/
+          path: k8s/target-service
 
       - name: Commit files
         run: |
