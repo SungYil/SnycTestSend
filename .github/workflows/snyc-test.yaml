@@ -45,9 +45,18 @@ jobs:
           git add k8s/**/**/*.env
           git commit -m "Fix. Send to Recev Repo env"
 
-      - name: Push changes
+      - if: ${{ github.ref == 'refs/heads/main' }}
+        name: Push changes
         uses: ad-m/github-push-action@master
         with:
           repository: SungYil/SyncTestRecev
           branch: main
+          github_token: ${{ secrets.TOKEN }}
+
+      - if: ${{ github.ref != 'refs/heads/main' }}
+        name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          repository: SungYil/SyncTestRecev
+          branch: br-test
           github_token: ${{ secrets.TOKEN }}
